@@ -3,7 +3,7 @@
 Django Coturn
 =====
 
-Django Coturn is a Django app to support synchronization of django admins/users with Coturn's long-term credential database. Coturn is an open-source STUN/TURN/ICE server. 
+Django Coturn is a Django app to synchronize django admins/users with Coturn's user database. Coturn is an open-source STUN/TURN/ICE server. 
 
 https://github.com/coturn/coturn
 

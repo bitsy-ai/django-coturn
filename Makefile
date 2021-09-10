@@ -39,7 +39,7 @@ pip-sync:
 	$(PIP) install -r requirements.txt
 	$(PIP) install -r dev-requirements.txt
 
-requirements.txt: requirements.in
+requirements.txt: setup.py
 	$(VENV_BIN)/pip-compile --generate-hashes
 
 dev-requirements.txt: dev-requirements.in
