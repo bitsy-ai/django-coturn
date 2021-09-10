@@ -1,7 +1,7 @@
 DIST ?= dist/
 PIP ?= $(VENV_BIN)/pip
 PYTHON ?= $(VENV_BIN)/python
-PYTHON_VERSION ?= python3.9
+PYTHON_VERSION ?= python3.8
 VENV ?= .venv
 VENV_BIN ?= $(VENV)/bin
 SRC_DIR ?= coturn
