@@ -33,4 +33,4 @@ class CoturnSettings:
         return user_model
 
 
-django_coturn_settings = CoturnSettings()
+coturn_settings = CoturnSettings()
