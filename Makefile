@@ -5,6 +5,7 @@ PYTHON_VERSION ?= python3.8
 VENV ?= .venv
 VENV_BIN ?= $(VENV)/bin
 SRC_DIR ?= coturn
+TEST_DIR ?= tests
 
 clean-venv:
 	rm -rf $(VENV)
@@ -53,4 +54,4 @@ tox:
 	pip install tox tox-gh-actions
 
 lint:
-	black $(SRC_DIR)
+	black $(SRC_DIR) $(TEST_DIR)

@@ -25,12 +25,12 @@ class TestCustomerSubscriberFK(TestCase):
         """
         field = AdminUser._meta.get_field("django_user")
 
-        self.assertEqual(field.related_model,coturn_settings.get_subscriber_model())
+        self.assertEqual(field.related_model, coturn_settings.get_user_model())
         self.assertNotEqual(field.related_model, settings.AUTH_USER_MODEL)
 
     def test_admin_user_fk_fallback_to_auth_user_model(self):
         """
-        Test to ensure customer.subscriber fk points to the fallback AUTH_USER_MODEL
+        Test to ensure admin_user.django_user fk points to the fallback AUTH_USER_MODEL
         when COTURN_USER_MODEL is not set
         """
         # assert COTURN_USER_MODEL has not been set
