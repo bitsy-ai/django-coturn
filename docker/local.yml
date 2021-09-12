@@ -1,0 +1,31 @@
+version: '3'
+
+volumes:
+  local_postgres_data: {}
+services:
+  django: &django
+    # enables use of pdb
+    hostname: django
+    stdin_open: true
+    tty: true
+    build:
+      context: ../
+      dockerfile: ./docker/Dockerfile
+    image: django_coturn
+    container_name: django_coturn
+    depends_on:
+      - postgres
+    volumes:
+      - .:/workspace:z
+    ports:
+      - "8000:8000"
+  postgres:
+    hostname: postgres
+    image: postgres:12.3
+    container_name: postgres_coturn
+    volumes:
+      - local_postgres_data:/var/lib/postgresql/data:z
+    env_file:
+      - postgres.env
+    ports:
+      - "5432:5432"

@@ -1,7 +1,7 @@
 # References: https://github.com/coturn/coturn/blob/master/turndb/schema.sql
 
 from django.db import models
-from .settings import django_coturn_settings
+from .settings import coturn_settings
 
 
 class AdminUser(models.Model):
@@ -9,7 +9,7 @@ class AdminUser(models.Model):
     realm = models.CharField(max_length=127, blank=True, null=True)
     password = models.CharField(max_length=127, blank=True, null=True)
     django_user = models.ForeignKey(
-        django_coturn_settings.get_user_model_string(),
+        coturn_settings.get_user_model_string(),
         null=True,
         on_delete=models.SET_NULL,
         related_name="coturn_admin_users",
@@ -80,12 +80,12 @@ class TurnSecret(models.Model):
         )
 
 
-class TurnusersLt(models.Model):
+class TurnUser(models.Model):
     realm = models.CharField(max_length=127, blank=True, default="")
     name = models.CharField(max_length=512, blank=True, null=True)
     hmackey = models.CharField(max_length=128, blank=True, null=True)
     django_user = models.ForeignKey(
-        django_coturn_settings.get_user_model_string(),
+        coturn_settings.get_user_model_string(),
         null=True,
         on_delete=models.SET_NULL,
         related_name="coturn_users",
