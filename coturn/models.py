@@ -5,18 +5,22 @@ from .settings import coturn_settings
 
 
 class AdminUser(models.Model):
+    """
+        A coturn admin_user row is created automatically for superusers
+    """
     name = models.CharField(unique=True, max_length=32, blank=True, null=True)
     realm = models.CharField(max_length=127, blank=True, null=True)
     password = models.CharField(max_length=127, blank=True, null=True)
-    django_user = models.ForeignKey(
+    django_user = models.OneToOneField(
         coturn_settings.get_user_model_string(),
         null=True,
         on_delete=models.SET_NULL,
-        related_name="coturn_admin_users",
+        related_name="coturn_admin_user",
     )
 
     class Meta:
         db_table = "admin_user"
+        models.UniqueConstraint(fields=["realm", "name"], name="unique_user_per_realm")
 
 
 class AllowedPeerIp(models.Model):
@@ -81,14 +85,17 @@ class TurnSecret(models.Model):
 
 
 class TurnUser(models.Model):
+    """
+        This data model is only used by Coturn's long-term credential strategy
+    """
     realm = models.CharField(max_length=127, blank=True, default="")
     name = models.CharField(max_length=512, blank=True, null=True)
     hmackey = models.CharField(max_length=128, blank=True, null=True)
-    django_user = models.ForeignKey(
+    django_user = models.OneToOneField(
         coturn_settings.get_user_model_string(),
         null=True,
         on_delete=models.SET_NULL,
-        related_name="coturn_users",
+        related_name="coturn_user",
     )
 
     class Meta:
