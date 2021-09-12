@@ -57,3 +57,6 @@ STATIC_URL = "/static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 SECRET_KEY = "abc123"
+
+AUTH_USER_MODEL = "testapp.CustomUser"
+
