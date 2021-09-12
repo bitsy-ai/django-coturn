@@ -34,11 +34,15 @@ release: dist
 pip-sync:
 	$(VENV_BIN)/pip-sync
 
-.venv:
-	$(PYTHON_VERSION) -m venv $(VENV)
+dev-install:
 	$(PIP) install pip-tools
 	$(PIP) install -r requirements.txt
 	$(PIP) install -r dev-requirements.txt
+
+.venv:
+	$(PYTHON_VERSION) -m venv $(VENV)
+
+venv: .venv dev-install
 
 requirements.txt: setup.py
 	$(VENV_BIN)/pip-compile --generate-hashes
