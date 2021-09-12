@@ -20,3 +20,10 @@ class TestCoturnSettings(TestCase):
     def test_invalid_auth_strategy(self):
         with pytest.raises(ImproperlyConfigured):
             coturn_settings.COTURN_AUTH_STRATEGY
+
+    @override_settings(
+        COTURN_REALM=None
+    )
+    def test_invalid_realm(self):
+        with pytest.raises(ImproperlyConfigured):
+            coturn_settings.COTURN_REALM
