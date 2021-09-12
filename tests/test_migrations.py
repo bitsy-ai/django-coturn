@@ -1,6 +1,3 @@
-"""
-dj-stripe Migrations Tests
-"""
 import pytest
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -10,7 +7,7 @@ from coturn.models import AdminUser, TurnUser
 from coturn.settings import coturn_settings
 
 
-class TestCustomerSubscriberFK(TestCase):
+class TestUserTurnAdminFK(TestCase):
     @override_settings(
         COTURN_USER_MODEL="testapp.CustomUser",
         COTURN_USER_MODEL_REQUEST_CALLBACK=(lambda request: request.user),

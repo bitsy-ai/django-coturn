@@ -1,6 +1,6 @@
 DIST ?= dist/
-PIP ?= $(VENV_BIN)/pip
-PYTHON ?= $(VENV_BIN)/python
+PIP ?= pip
+PYTHON ?= python
 PYTHON_VERSION ?= python3.8
 VENV ?= .venv
 VENV_BIN ?= $(VENV)/bin
