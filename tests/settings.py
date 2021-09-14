@@ -1,4 +1,7 @@
 import os
+import environ
+
+env = environ.Env()
 
 DEBUG = True
 TIME_ZONE = "UTC"
@@ -6,12 +9,10 @@ USE_TZ = True
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
+db_config = env.db("DATABASE_URL")
+db_config["ENGINE"] = 'django.db.backends.postgresql'
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-        "TEST": {"NAME": os.path.join(BASE_DIR, "test_db.sqlite3")},
-    }
+    "default": db_config,
 }
 
 TEMPLATES = [
@@ -37,9 +38,10 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.sites",
     "django.contrib.staticfiles",
-    "coturn",
     "tests",
     "tests.apps.testapp",
+    "coturn",
+
 ]
 
 MIDDLEWARE = (

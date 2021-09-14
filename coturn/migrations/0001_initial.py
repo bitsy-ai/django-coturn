@@ -4,13 +4,36 @@ from django.conf import settings
 from django.db import migrations, models
 import django.db.models.deletion
 
+COTURN_USER_MODEL = getattr(
+    settings, "COTURN_USER_MODEL", settings.AUTH_USER_MODEL
+)
+
+COTURN_USER_MODEL_MIGRATION_DEPENDENCY = getattr(
+    settings, "COTURN_USER_MODEL_MIGRATION_DEPENDENCY", "__first__"
+)
+
+
+COTURN_USER_MODEL_DEPENDENCY = migrations.swappable_dependency(
+    COTURN_USER_MODEL
+)
+
+if COTURN_USER_MODEL != settings.AUTH_USER_MODEL:
+    COTURN_USER_MODEL_DEPENDENCY = migrations.migration.SwappableTuple(
+        (
+            COTURN_USER_MODEL.split(".", 1)[0],
+            COTURN_USER_MODEL_MIGRATION_DEPENDENCY,
+        ),
+        COTURN_USER_MODEL,
+    )
+
+
 
 class Migration(migrations.Migration):
 
     initial = True
 
     dependencies = [
-        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        COTURN_USER_MODEL_DEPENDENCY,
     ]
 
     operations = [

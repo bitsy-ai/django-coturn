@@ -22,7 +22,7 @@ ADD dev-requirements.txt .
 ADD Makefile .
 RUN PYTHON=$(which python3) make dev-install
 
-ADD coturn .
-ADD tests .
+ADD . .
 
-ENTRYPOINT [ "python3" ]
+
+ENTRYPOINT [ "docker/entrypoint" ]
