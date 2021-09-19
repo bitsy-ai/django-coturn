@@ -24,8 +24,10 @@ if __name__ == "__main__":
         raise
 
     # This allows easy placement of apps within the interior
-    # print_nanny_webapp directory.
+    # django_coturn directory.
     current_path = Path(__file__).parent.resolve()
-    sys.path.append(str(current_path / "coturn"))
+    sys.path.append(str(current_path / "django_coturn"))
+    # tests directory
+    sys.path.append(str(current_path / "tests"))
 
     execute_from_command_line(sys.argv)
