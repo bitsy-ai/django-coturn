@@ -11,6 +11,7 @@ from django_coturn.settings import coturn_settings
 ADMIN_EMAIL = "admin@test.com"
 USER_EMAIL = "user@test.com"
 
+
 class TestUserTurnAdminFK(TestCase):
     @override_settings(
         COTURN_USER_MODEL="testapp.CustomUser",
@@ -19,16 +20,12 @@ class TestUserTurnAdminFK(TestCase):
     def setUp(self):
         return super().setUp()
 
-    @override_settings(
-        COTURN_AUTH_STRATEGY=CoturnAuthStrategy.TURN_REST_API
-    )
+    @override_settings(COTURN_AUTH_STRATEGY=CoturnAuthStrategy.TURN_REST_API)
     def test_admin_user_created_for_django_superuser(self):
         UserModel = get_user_model()
         password = UserModel.objects.make_random_password()
         admin_user = UserModel(
-            email=ADMIN_EMAIL,
-            username=ADMIN_EMAIL,
-            is_superuser=True
+            email=ADMIN_EMAIL, username=ADMIN_EMAIL, is_superuser=True
         )
         admin_user.set_password(password)
         admin_user.save()

@@ -9,8 +9,9 @@ from .settings import coturn_settings
 
 class TurnAdmin(models.Model):
     """
-        A coturn admin_user row is created automatically for superusers
+    A coturn admin_user row is created automatically for superusers
     """
+
     name = models.CharField(unique=True, max_length=32)
     realm = models.CharField(max_length=127, blank=True, null=True)
     password = models.CharField(max_length=127)
@@ -19,9 +20,15 @@ class TurnAdmin(models.Model):
     class Meta:
         db_table = "admin_user"
         constraints = (
-            models.UniqueConstraint(fields=["realm", "name"], name="unique_admin_username_per_realm"),
-            models.UniqueConstraint(fields=["realm", "django_user_id"], name="unique_django_admin_per_realm")
+            models.UniqueConstraint(
+                fields=["realm", "name"], name="unique_admin_username_per_realm"
+            ),
+            models.UniqueConstraint(
+                fields=["realm", "django_user_id"], name="unique_django_admin_per_realm"
+            ),
         )
+
+
 class AllowedPeerIp(models.Model):
     realm = models.CharField(max_length=127, blank=True, null=True)
     ip_range = models.CharField(max_length=256, blank=True, null=True)
@@ -29,8 +36,11 @@ class AllowedPeerIp(models.Model):
     class Meta:
         db_table = "allowed_peer_ip"
         constraints = (
-            models.UniqueConstraint(fields=["realm", "ip_range"], name="unique_allowed_ip_range_realm"),
+            models.UniqueConstraint(
+                fields=["realm", "ip_range"], name="unique_allowed_ip_range_realm"
+            ),
         )
+
 
 class DeniedPeerIp(models.Model):
     realm = models.CharField(max_length=127, blank=True, null=True)
@@ -39,8 +49,11 @@ class DeniedPeerIp(models.Model):
     class Meta:
         db_table = "denied_peer_ip"
         constraints = (
-            models.UniqueConstraint(fields=["realm", "ip_range"], name="unique_denied_ip_range_realm"),
+            models.UniqueConstraint(
+                fields=["realm", "ip_range"], name="unique_denied_ip_range_realm"
+            ),
         )
+
 
 class OauthKey(models.Model):
     kid = models.CharField(unique=True, max_length=128)
@@ -70,8 +83,11 @@ class TurnRealmOption(models.Model):
     class Meta:
         db_table = "turn_realm_option"
         constraints = (
-            models.UniqueConstraint(fields=["realm", "opt"], name="unique_opt_per_realm"),
+            models.UniqueConstraint(
+                fields=["realm", "opt"], name="unique_opt_per_realm"
+            ),
         )
+
 
 class TurnSecret(models.Model):
     realm = models.CharField(max_length=127)
@@ -81,14 +97,16 @@ class TurnSecret(models.Model):
         db_table = "turn_secret"
         constraints = (
             models.UniqueConstraint(
-            fields=["realm", "value"], name="unique_value_per_realm"
+                fields=["realm", "value"], name="unique_value_per_realm"
             ),
         )
 
+
 class TurnUser(models.Model):
     """
-        This data model is only used by Coturn's long-term credential strategy
+    This data model is only used by Coturn's long-term credential strategy
     """
+
     realm = models.CharField(max_length=127, blank=True, default="")
     name = models.CharField(max_length=512, blank=True, null=True)
     hmackey = models.CharField(max_length=128, blank=True, null=True)
@@ -97,6 +115,10 @@ class TurnUser(models.Model):
     class Meta:
         db_table = "turnusers_lt"
         constraints = (
-            models.UniqueConstraint(fields=["realm", "name"], name="unique_username_per_realm"),
-            models.UniqueConstraint(fields=["realm", "django_user_id"], name="unique_django_user_per_realm")
+            models.UniqueConstraint(
+                fields=["realm", "name"], name="unique_username_per_realm"
+            ),
+            models.UniqueConstraint(
+                fields=["realm", "django_user_id"], name="unique_django_user_per_realm"
+            ),
         )

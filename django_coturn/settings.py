@@ -5,15 +5,19 @@ from django.db.models import Model
 
 from .enum import CoturnAuthStrategy
 
-class CoturnSettings:
 
+class CoturnSettings:
     @property
     def COTURN_AUTH_STRATEGY(self) -> CoturnAuthStrategy:
-        auth_strategy = getattr(settings, "COTURN_AUTH_STRATEGY", CoturnAuthStrategy.TURN_REST_API)
+        auth_strategy = getattr(
+            settings, "COTURN_AUTH_STRATEGY", CoturnAuthStrategy.TURN_REST_API
+        )
         if not isinstance(auth_strategy, CoturnAuthStrategy):
-            raise ImproperlyConfigured("COTURN_AUTH_STRATEGY must be set to \
+            raise ImproperlyConfigured(
+                "COTURN_AUTH_STRATEGY must be set to \
                 coturn.enum.CoturnAuthStrategy.TURN_REST_API (default) or \
-                or coturn.enum.CoturnAuthStrategy.LONG_TERM_CREDENTIALS")
+                or coturn.enum.CoturnAuthStrategy.LONG_TERM_CREDENTIALS"
+            )
         return auth_strategy
 
     @property
@@ -33,7 +37,9 @@ class CoturnSettings:
         if not secret:
             raise ImproperlyConfigured("COTURN_SECRET_KEY must be set in settings.py")
         if len(secret) > 127:
-            raise ImproperlyConfigured("COTURN_SECRET_KEY must be less than 127 characters in length")
+            raise ImproperlyConfigured(
+                "COTURN_SECRET_KEY must be less than 127 characters in length"
+            )
         return secret
 
     def get_user_model_string(self) -> str:

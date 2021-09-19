@@ -4,7 +4,7 @@ PYTHON ?= python
 PYTHON_VERSION ?= python3.8
 VENV ?= .venv
 VENV_BIN ?= $(VENV)/bin
-SRC_DIR ?= coturn
+SRC_DIR ?= django_coturn
 TEST_DIR ?= tests
 
 clean-venv:
