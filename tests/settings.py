@@ -11,8 +11,11 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 
 db_config = env.db("DATABASE_URL")
 db_config["ENGINE"] = 'django.db.backends.postgresql'
+coturn_db_config = env.db("COTURN_DATABASE_URL", db_config)
+coturn_db_config["ENGINE"] = 'django.db.backends.postgresql'
 DATABASES = {
     "default": db_config,
+    "coturn": coturn_db_config
 }
 
 TEMPLATES = [
@@ -61,5 +64,4 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 SECRET_KEY = "abc123"
 
 AUTH_USER_MODEL = "testapp.CustomUser"
-
 COTURN_REALM = 'north.gov'
