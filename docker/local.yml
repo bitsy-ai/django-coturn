@@ -10,7 +10,7 @@ services:
     tty: true
     build:
       context: ../
-      dockerfile: ./docker/Dockerfile
+      dockerfile: ./docker/django.Dockerfile
     image: django_coturn
     container_name: django_coturn
     depends_on:
@@ -20,7 +20,7 @@ services:
     ports:
       - "8000:8000"
     env_file:
-      - postgres.env
+      - test.env
     command:
       - ./start
   postgres:
@@ -30,6 +30,6 @@ services:
     volumes:
       - local_postgres_data:/var/lib/postgresql/data:z
     env_file:
-      - postgres.env
+      - test.env
     ports:
       - "5432:5432"

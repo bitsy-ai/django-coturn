@@ -3,7 +3,7 @@ from django.test import TestCase, override_settings
 from datetime import datetime, timezone, tzinfo
 from freezegun import freeze_time
 
-from coturn.services import create_turn_api_credentials, _get_expiration_timestamp
+from django_coturn.services import create_turn_api_credentials, _get_expiration_timestamp
 
 class TestServices(TestCase):
 

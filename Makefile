@@ -59,11 +59,11 @@ lint:
 
 tests/fixtures/testsqldbsetup.json: tests/fixtures/testsqldbsetup.sql
 	cat tests/fixtures/testsqldbsetup.sql | docker-compose -f docker/local.yml run django manage.py dbshell
-	docker compose -f docker/local.yml run django manage.py dbshell
-	docker compose -f docker/local.yml run django manage.py dumpdata > tests/fixtures/testsqldbsetup.json
+	docker-compose -f docker/local.yml run django manage.py dbshell
+	docker-compose -f docker/local.yml run django manage.py dumpdata > tests/fixtures/testsqldbsetup.json
 
 images:
-	docker compose -f docker/local.yml build
+	docker-compose -f docker/local.yml build
 
 test:
-	docker compose -f docker/local.yml run django -m pytest
+	docker-compose -f docker/local.yml run --rm django pytest
