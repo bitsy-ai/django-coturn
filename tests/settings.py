@@ -62,3 +62,4 @@ SECRET_KEY = "abc123"
 
 AUTH_USER_MODEL = "testapp.CustomUser"
 
+COTURN_REALM = 'north.gov'

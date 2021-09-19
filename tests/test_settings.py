@@ -27,3 +27,10 @@ class TestCoturnSettings(TestCase):
     def test_invalid_realm(self):
         with pytest.raises(ImproperlyConfigured):
             coturn_settings.COTURN_REALM
+
+    @override_settings(
+        COTURN_SHARED_SECRET=None
+    )
+    def test_invalid_shared_secret(self):
+        with pytest.raises(ImproperlyConfigured):
+            coturn_settings.COTURN_SHARED_SECRET
