@@ -32,6 +32,8 @@ class CoturnSettings:
         secret = getattr(settings, "COTURN_SECRET_KEY", None)
         if not secret:
             raise ImproperlyConfigured("COTURN_SECRET_KEY must be set in settings.py")
+        if len(secret) > 127:
+            raise ImproperlyConfigured("COTURN_SECRET_KEY must be less than 127 characters in length")
         return secret
 
     def get_user_model_string(self) -> str:
