@@ -14,8 +14,8 @@ logger = logging.getLogger(__name__)
 
 User = get_user_model()
 
-class Command(BaseCommand):
 
+class Command(BaseCommand):
     def add_arguments(self, parser: CommandParser) -> None:
         subparsers = parser.add_subparsers(
             title="subcommands", dest="subcommand", required=True
@@ -37,13 +37,17 @@ class Command(BaseCommand):
                 print(f"Skipping user with id={user.id} (already exists)")
             except User.DoesNotExist:
                 password = User.objects.make_random_password()
-                hmackey = hmac.new(settings.COTURN_SECRET_KEY.encode("utf-8"), password.encode("utf-8"), hashlib.sha1)
-                hmackey.update(settings.COTURN_REALM.encode('utf-8'))
+                hmackey = hmac.new(
+                    settings.COTURN_SECRET_KEY.encode("utf-8"),
+                    password.encode("utf-8"),
+                    hashlib.sha1,
+                )
+                hmackey.update(settings.COTURN_REALM.encode("utf-8"))
                 u = TurnUser.objects.create(
                     user=user.email,
                     realm=settings.COTURN_REALM,
                     django_user_id=user.id,
-                    hmackey=hmackey.hexdigest()
+                    hmackey=hmackey.hexdigest(),
                 )
                 print(f"Created turnsusers_lt {u}")
 
@@ -61,14 +65,14 @@ class Command(BaseCommand):
 
         for superuser in User.objects.filter(superuser=True).all():
             try:
-                a = TurnAdmin.objects.get(
-                    name=superuser.email
-                )
+                a = TurnAdmin.objects.get(name=superuser.email)
                 print(f"Skipping turn_admin creation for {superuser.email}")
                 if a.django_user_id is None:
-                    a.django_user_id=superuser.id
+                    a.django_user_id = superuser.id
                     a.save()
-                    print(f"Updated TURN admin_user {a} django_user_id={a.django_user_id}")
+                    print(
+                        f"Updated TURN admin_user {a} django_user_id={a.django_user_id}"
+                    )
             except TurnAdmin.DoesNotExist:
                 a = TurnAdmin.objects.create(
                     name=superuser.email,
@@ -77,5 +81,3 @@ class Command(BaseCommand):
                 )
 
                 print(f"Created admin_user {a}")
-    
-    def handle_turn_user(self, *args, **kwargs):
