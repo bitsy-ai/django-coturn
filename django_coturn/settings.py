@@ -17,8 +17,8 @@ class CoturnSettings:
         return auth_strategy
 
     @property
-    def COTURN_TOKEN_MAX_AGE(self):
-        return int(getattr(settings, "COTURN_TOKEN_MAX_AGE", 60))
+    def COTURN_CREDENTIAL_MAX_AGE(self) -> int:
+        return int(getattr(settings, "COTURN_CREDENTIAL_MAX_AGE", 60))
 
     @property
     def COTURN_REALM(self) -> str:
@@ -26,6 +26,13 @@ class CoturnSettings:
         if not coturn_realm:
             raise ImproperlyConfigured("COTURN_REALM must be set in settings.py")
         return coturn_realm
+
+    @property
+    def COTURN_SECRET_KEY(self) -> str:
+        secret = getattr(settings, "COTURN_SECRET_KEY", None)
+        if not secret:
+            raise ImproperlyConfigured("COTURN_SECRET_KEY must be set in settings.py")
+        return secret
 
     def get_user_model_string(self) -> str:
         """Get the configured subscriber model as a module path string."""
