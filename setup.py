@@ -7,7 +7,8 @@ from coturn import __version__
 
 long_description: str = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
 install_requires = [
-    'django>=3.2'
+    'django>=3.2',
+    'psycopg2'
 ]
 python_requires = '>3.6.9'
 setup(

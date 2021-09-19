@@ -4,7 +4,7 @@ PYTHON ?= python
 PYTHON_VERSION ?= python3.8
 VENV ?= .venv
 VENV_BIN ?= $(VENV)/bin
-SRC_DIR ?= coturn
+SRC_DIR ?= django_coturn
 TEST_DIR ?= tests
 
 clean-venv:
@@ -50,12 +50,20 @@ requirements.txt: setup.py
 dev-requirements.txt: dev-requirements.in
 	$(VENV_BIN)/pip-compile --generate-hashes dev-requirements.in --output-file dev-requirements.txt
 
-test:
-	$(VENV_BIN)/pytest
-
 tox:
 	python3 -m pip install --upgrade pip
 	pip install tox tox-gh-actions
 
 lint:
 	black $(SRC_DIR) $(TEST_DIR)
+
+tests/fixtures/testsqldbsetup.json: tests/fixtures/testsqldbsetup.sql
+	cat tests/fixtures/testsqldbsetup.sql | docker-compose -f docker/local.yml run django manage.py dbshell
+	docker-compose -f docker/local.yml run django manage.py dbshell
+	docker-compose -f docker/local.yml run django manage.py dumpdata > tests/fixtures/testsqldbsetup.json
+
+images:
+	docker-compose -f docker/local.yml build
+
+test:
+	docker-compose -f docker/local.yml run --rm django pytest

@@ -5,16 +5,42 @@ from django.db.models import Model
 
 from .enum import CoturnAuthStrategy
 
+
 class CoturnSettings:
+    @property
+    def COTURN_AUTH_STRATEGY(self) -> CoturnAuthStrategy:
+        auth_strategy = getattr(
+            settings, "COTURN_AUTH_STRATEGY", CoturnAuthStrategy.TURN_REST_API
+        )
+        if not isinstance(auth_strategy, CoturnAuthStrategy):
+            raise ImproperlyConfigured(
+                "COTURN_AUTH_STRATEGY must be set to \
+                coturn.enum.CoturnAuthStrategy.TURN_REST_API (default) or \
+                or coturn.enum.CoturnAuthStrategy.LONG_TERM_CREDENTIALS"
+            )
+        return auth_strategy
 
     @property
-    def COTURN_AUTH_STRATEGY(self):
-        auth_strategy = getattr(settings, "COTURN_AUTH_STRATEGY", CoturnAuthStrategy.TURN_REST_API)
-        if not isinstance(auth_strategy, CoturnAuthStrategy):
-            raise ImproperlyConfigured("COTURN_AUTH_STRATEGY must be set to \
-                coturn.enum.CoturnAuthStrategy.TURN_REST_API (default) or \
-                or coturn.enum.CoturnAuthStrategy.LONG_TERM_CREDENTIALS")
+    def COTURN_CREDENTIAL_MAX_AGE(self) -> int:
+        return int(getattr(settings, "COTURN_CREDENTIAL_MAX_AGE", 60))
 
+    @property
+    def COTURN_REALM(self) -> str:
+        coturn_realm = getattr(settings, "COTURN_REALM", None)
+        if not coturn_realm:
+            raise ImproperlyConfigured("COTURN_REALM must be set in settings.py")
+        return coturn_realm
+
+    @property
+    def COTURN_SECRET_KEY(self) -> str:
+        secret = getattr(settings, "COTURN_SECRET_KEY", None)
+        if not secret:
+            raise ImproperlyConfigured("COTURN_SECRET_KEY must be set in settings.py")
+        if len(secret) > 127:
+            raise ImproperlyConfigured(
+                "COTURN_SECRET_KEY must be less than 127 characters in length"
+            )
+        return secret
 
     def get_user_model_string(self) -> str:
         """Get the configured subscriber model as a module path string."""

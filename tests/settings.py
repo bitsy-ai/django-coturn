@@ -1,4 +1,7 @@
 import os
+import environ
+
+env = environ.Env()
 
 DEBUG = True
 TIME_ZONE = "UTC"
@@ -6,13 +9,11 @@ USE_TZ = True
 PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 BASE_DIR = os.path.dirname(PROJECT_DIR)
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-        "TEST": {"NAME": os.path.join(BASE_DIR, "test_db.sqlite3")},
-    }
-}
+db_config = env.db("DATABASE_URL")
+db_config["ENGINE"] = "django.db.backends.postgresql"
+coturn_db_config = env.db("COTURN_DATABASE_URL")
+coturn_db_config["ENGINE"] = "django.db.backends.postgresql"
+DATABASES = {"default": db_config, "coturn": coturn_db_config}
 
 TEMPLATES = [
     {
@@ -37,9 +38,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.sites",
     "django.contrib.staticfiles",
-    "coturn",
     "tests",
     "tests.apps.testapp",
+    "django_coturn",
 ]
 
 MIDDLEWARE = (
@@ -56,7 +57,8 @@ STATIC_URL = "/static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-SECRET_KEY = "abc123"
+SECRET_KEY = "unGPquS03pKnzfQblEpV9KQtFRwgkGaNyS5Ijra7JkM56P9xbE"
 
 AUTH_USER_MODEL = "testapp.CustomUser"
-
+COTURN_REALM = "north.gov"
+COTURN_SECRET_KEY = SECRET_KEY
