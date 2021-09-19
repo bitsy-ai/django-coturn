@@ -15,16 +15,13 @@ class TurnAdmin(models.Model):
     name = models.CharField(unique=True, max_length=32)
     realm = models.CharField(max_length=127, blank=True, null=True)
     password = models.CharField(max_length=127)
-    django_user_id = models.BigIntegerField()
+    django_user_id = models.BigIntegerField(null=True)
 
     class Meta:
         db_table = "admin_user"
         constraints = (
             models.UniqueConstraint(
                 fields=["realm", "name"], name="unique_admin_username_per_realm"
-            ),
-            models.UniqueConstraint(
-                fields=["realm", "django_user_id"], name="unique_django_admin_per_realm"
             ),
         )
 
