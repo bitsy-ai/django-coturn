@@ -7,6 +7,7 @@ from .services import get_or_update_turn_user
 
 User = get_user_model()
 
+
 @receiver(post_save, sender=User, dispatch_uid="django_coturn_user_post_save")
 def create_turn_models(sender, instance, **kwargs) -> TurnUser:
     return get_or_update_turn_user(instance)

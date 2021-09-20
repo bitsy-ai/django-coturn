@@ -18,6 +18,7 @@ from .settings import coturn_settings
 logger = logging.getLogger(__name__)
 User = get_user_model()
 
+
 def _get_expiration_timestamp() -> int:
     now = datetime.utcnow()
     expiration_ts = (
@@ -54,9 +55,11 @@ def create_turn_admin(user: User, default_password="CHANGEME") -> TurnAdmin:
         password=default_password,
     )
 
+
 def delete_turn_secrets():
     for s in TurnSecret.objects.using("coturn").all():
         s.delete(using="coturn")
+
 
 def create_turn_secret() -> TurnSecret:
     realm = settings.COTURN_REALM
@@ -65,10 +68,13 @@ def create_turn_secret() -> TurnSecret:
     new_secret.save(using="coturn")
     return new_secret
 
+
 def get_or_update_turn_user(user: User) -> TurnUser:
     try:
         turn_user = TurnUser.objects.get(django_user_id=user.id)
-        logger.debug(f"Found existing TurnUser id={turn_user.id} django_user_id={turn_user.django_user_id}")
+        logger.debug(
+            f"Found existing TurnUser id={turn_user.id} django_user_id={turn_user.django_user_id}"
+        )
     except TurnUser.DoesNotExist:
         password = User.objects.make_random_password()
         hmackey = hmac.new(
@@ -83,8 +89,11 @@ def get_or_update_turn_user(user: User) -> TurnUser:
             django_user_id=user.id,
             hmackey=hmackey.hexdigest(),
         )
-        logger.debug(f"Created new TurnUser id={turn_user.id} django_user_id={turn_user.django_user_id}")
+        logger.debug(
+            f"Created new TurnUser id={turn_user.id} django_user_id={turn_user.django_user_id}"
+        )
     return turn_user
+
 
 def get_or_update_turn_admin(user: User) -> TurnAdmin:
     try:
@@ -92,7 +101,9 @@ def get_or_update_turn_admin(user: User) -> TurnAdmin:
         if turn_admin.django_user_id is None:
             turn_admin.django_user_id = user.id
             turn_admin.save()
-            logger.info(f"Linked TurnAdmin id={turn_admin.id} to django_user_id={turn_admin.django_user_id}")
+            logger.info(
+                f"Linked TurnAdmin id={turn_admin.id} to django_user_id={turn_admin.django_user_id}"
+            )
     except TurnAdmin.DoesNotExist:
         turn_admin = TurnAdmin.objects.create(
             name=user.email,

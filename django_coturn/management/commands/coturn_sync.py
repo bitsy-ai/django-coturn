@@ -8,10 +8,10 @@ from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand, CommandParser
 from django.conf import settings
 from django_coturn.services import (
-    delete_turn_secrets, 
+    delete_turn_secrets,
     create_turn_secret,
     get_or_update_turn_admin,
-    get_or_update_turn_user
+    get_or_update_turn_user,
 )
 
 logger = logging.getLogger(__name__)
