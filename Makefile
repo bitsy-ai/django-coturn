@@ -68,13 +68,5 @@ images:
 test:
 	docker-compose -f docker/local.yml run --rm django pytest
 
-sdist: ## builds source package
-	python setup.py sdist && ls -l dist
-
-bdist_wheel: ## builds wheel package
-	python setup.py bdist_wheel && ls -l dist
-
-dist: sdist bdist_wheel
-
-release:
-	twine upload dist/*
+dev:
+	docker-compose -f docker/local.yml up
