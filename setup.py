@@ -23,7 +23,15 @@ setup(
     license = 'GNU AGPLv3',
     keywords = 'django stun turn ice coturn webrtc',
     url = 'http://github.com/bitsy-ai/django-coturn',
-    classifiers = [],
+    classifiers = [
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Framework :: Django",
+        "Framework :: Django :: 3.1",
+        "Framework :: Django :: 3.2"
+    ],
     zip_safe = False,
     install_requires = install_requires,
     test_suite = 'pytest',
