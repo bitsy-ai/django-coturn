@@ -4,16 +4,21 @@ Django Coturn
 ==============
 
 .. image:: https://img.shields.io/pypi/v/django-coturn
-.. image:: https://img.shields.io/github/release-date-pre/bitsy-ai/django-coturn
+    :target: https://pypi.org/project/django-coturn/
 .. image:: https://img.shields.io/pypi/pyversions/django-coturn
+    :target: https://pypi.org/project/django-coturn/
 .. image:: https://img.shields.io/pypi/djversions/django-coturn
+    :target: https://pypi.org/project/django-coturn/
 .. image:: https://img.shields.io/pypi/wheel/django-coturn
-
-.. image:: https://img.shields.io/github/workflow/status/bitsy-ai/django-coturn/Test
-.. image:: https://img.shields.io/codecov/c/github/bitsy-ai/django-coturn
+    :target: https://pypi.org/project/django-coturn/
 .. image:: https://img.shields.io/discord/773452324692688956
-
-
+    :target: https://discord.gg/Y848Hq9xKh
+.. image:: https://img.shields.io/github/workflow/status/bitsy-ai/django-coturn/Test
+    :target: https://github.com/bitsy-ai/django-coturn
+.. image:: https://img.shields.io/codecov/c/github/bitsy-ai/django-coturn
+    :target: https://github.com/bitsy-ai/django-coturn
+.. image:: https://img.shields.io/github/release-date-pre/bitsy-ai/django-coturn
+    :target: https://github.com/bitsy-ai/django-coturn
 
 Django Coturn is a Django app to synchronize django admins/users with Coturn's user database. Coturn is an open-source STUN/TURN/ICE server. 
 
