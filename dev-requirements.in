@@ -9,4 +9,5 @@ pytest-django
 pytest-mock
 tox 
 tox-gh-actions
+twine
 wheel

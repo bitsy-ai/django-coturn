@@ -31,4 +31,20 @@ Quick start
 
 4. Run ``python manage.py migrate`` to create the coturn models.
 
-5. Run ``python manage.py sync_coturn {turn_secret,turn_admin,turn_user} .`` to sync users/admin data to coturn tables. You only need to do this once per table - subsequent updates will be handled by Django signals.
+5. Run ``python manage.py sync_coturn {turn_secret,turn_admin,turn_user}`` to sync users/admin data to coturn tables. You only need to do this once per table - subsequent updates will be handled by Django signals.
+
+Contributor's Guide
+-----------
+
+1. Create a development environment (requires docker & docker-compose)::
+
+    make dev
+
+2. Run tests and generate a coverage report::
+
+    make tests
+
+3. Run `black` linter::
+
+    make lint
+

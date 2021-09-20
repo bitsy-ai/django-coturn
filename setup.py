@@ -3,7 +3,7 @@ import os
 from typing import List
 
 from setuptools import setup, find_packages
-from coturn import __version__
+from django_coturn import __version__
 
 long_description: str = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
 install_requires = [
@@ -12,7 +12,7 @@ install_requires = [
 ]
 python_requires = '>3.6.9'
 setup(
-    name = 'django-coturn',
+    name = 'django_coturn',
     version = __version__,
     packages = find_packages(),
     author = 'Leigh Johnson',

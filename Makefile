@@ -50,10 +50,6 @@ requirements.txt: setup.py
 dev-requirements.txt: dev-requirements.in
 	$(VENV_BIN)/pip-compile --generate-hashes dev-requirements.in --output-file dev-requirements.txt
 
-tox:
-	python3 -m pip install --upgrade pip
-	pip install tox tox-gh-actions
-
 lint:
 	black $(SRC_DIR) $(TEST_DIR)
 
@@ -65,5 +61,11 @@ tests/fixtures/testsqldbsetup.json: tests/fixtures/testsqldbsetup.sql
 images:
 	docker-compose -f docker/local.yml build
 
-test:
+pytest:
 	docker-compose -f docker/local.yml run --rm django pytest
+
+tox:
+	docker-compose -f docker/local.yml run --rm django tox
+
+dev:
+	docker-compose -f docker/local.yml up
