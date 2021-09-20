@@ -1,7 +1,7 @@
 
-=====
+==============
 Django Coturn
-=====
+==============
 
 Django Coturn is a Django app to synchronize django admins/users with Coturn's user database. Coturn is an open-source STUN/TURN/ICE server. 
 
@@ -34,7 +34,7 @@ Quick start
 5. Run ``python manage.py sync_coturn {turn_secret,turn_admin,turn_user}`` to sync users/admin data to coturn tables. You only need to do this once per table - subsequent updates will be handled by Django signals.
 
 Contributor's Guide
------------
+--------------------
 
 1. Create a development environment (requires docker & docker-compose)::
 

@@ -10,4 +10,5 @@ pytest-mock
 tox 
 tox-gh-actions
 twine
+sphinx
 wheel
