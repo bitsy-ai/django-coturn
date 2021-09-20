@@ -3,6 +3,9 @@
 Django Coturn
 ==============
 
+.. image:: https://img.shields.io/pypi/pyversions/django-coturn
+.. image:: https://img.shields.io/pypi/djversions/django-coturn
+
 Django Coturn is a Django app to synchronize django admins/users with Coturn's user database. Coturn is an open-source STUN/TURN/ICE server. 
 
 https://github.com/coturn/coturn
