@@ -14,7 +14,7 @@ Quick start
 
     INSTALLED_APPS = [
         ...
-        "coturn",
+        "django_coturn",
     ]
 
 2. Create an empty `coturn` database
@@ -26,6 +26,9 @@ Quick start
         "coturn": env.db("COTURN_DATABASE_URL")
     }
 
+    COTURN_REALM = "turn.example-domain.com"
+    COTURN_SECRET_KEY = "127 character secret"
+
 4. Run ``python manage.py migrate`` to create the coturn models.
 
-5. Run ``python manage.py sync_coturn`` to sync users/admin data to coturn tables. You only need to do this once - subsequent updates will be handled by Django signals.
+5. Run ``python manage.py sync_coturn {turn_secret,turn_admin,turn_user} .`` to sync users/admin data to coturn tables. You only need to do this once per table - subsequent updates will be handled by Django signals.
