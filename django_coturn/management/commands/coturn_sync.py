@@ -41,8 +41,11 @@ class Command(BaseCommand):
     def handle_turn_secret(self, *args, **kwargs):
         delete_turn_secrets()
         new_secret = create_turn_secret()
-        print(f"Created {new_secret} from COTURN_SECRET_KEY")
+        self.stdout.write(f"Created {new_secret} from COTURN_SECRET_KEY")
 
     def handle_turn_admin(self, *args, **kwargs):
         for user in User.objects.filter(superuser=True).all():
             get_or_update_turn_admin(user)
+
+    def handle(self, subcommand: Callable, *args, **kwargs):
+        return subcommand(*args, **kwargs)
