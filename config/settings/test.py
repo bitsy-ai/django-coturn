@@ -3,6 +3,7 @@ import environ
 
 env = environ.Env()
 
+ROOT_URLCONF = "config.urls"
 DEBUG = True
 TIME_ZONE = "UTC"
 USE_TZ = True
