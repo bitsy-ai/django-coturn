@@ -20,9 +20,11 @@ WORKDIR /workspace
 ADD requirements.txt .
 ADD dev-requirements.txt .
 ADD Makefile .
+RUN python -m pip install --upgrade pip wheel setuptools
 RUN PYTHON=$(which python3) make dev-install
 
-ADD . .
+ADD docker/entrypoint /entrypoint
+RUN echo "/workspace" > /usr/local/lib/python3.8/site-packages/django_coturn.pth
 
 
-ENTRYPOINT [ "docker/entrypoint" ]
+ENTRYPOINT [ "/entrypoint" ]
