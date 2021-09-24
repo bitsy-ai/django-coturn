@@ -14,3 +14,6 @@ class CreateCoturnCredential(View):
 
     def get(self, request):
         username, password = create_turn_api_credentials(request.user.email)
+
+
+create_coturn_credential = CreateCoturnCredential.as_view()
