@@ -69,3 +69,6 @@ tox:
 
 dev:
 	docker-compose -f docker/local.yml up
+
+superuser:
+	docker-compose -f docker/local.yml run --rm django python manage.py createsuperuser
