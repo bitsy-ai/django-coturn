@@ -2,7 +2,7 @@
 import os
 from typing import List
 
-from setuptools import setup, find_packages
+from setuptools import setup, find_namespace_packages
 from django_coturn import __version__
 
 long_description: str = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
@@ -14,7 +14,7 @@ python_requires = '>3.6.9'
 setup(
     name = 'django_coturn',
     version = __version__,
-    packages = find_packages(),
+    packages = find_namespace_packages(exclude=["test", "tests", "config"]),
     author = 'Leigh Johnson',
     author_email = 'leigh@bitsy.ai',
     description = 'Django Coturn is a Django app to synchronize django admins/users with Coturn\'s user database. \
@@ -32,7 +32,7 @@ setup(
         "Framework :: Django :: 3.1",
         "Framework :: Django :: 3.2"
     ],
-    zip_safe = False,
+    zip_safe = True,
     install_requires = install_requires,
     test_suite = 'pytest',
     python_requires=python_requires,
