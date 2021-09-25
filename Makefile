@@ -17,8 +17,10 @@ clean-pyc: ## remove Python file artifacts
 	find . -name '*.pyo' -exec rm -f {} +
 	find . -name '*~' -exec rm -f {} +
 	find . -name '__pycache__' -exec rm -fr {} +
-
-clean: clean-dist clean-pyc clean-venv
+	rm -fr .eggs/
+	find . -name '*.egg-info' -exec rm -fr {} +
+	find . -name '*.egg' -exec rm -rf {} +
+clean: clean-dist clean-pyc
 
 sdist: ## builds source package
 	$(PYTHON) setup.py sdist && ls -l dist
